@@ -12,6 +12,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Button from '@material-ui/core/Button';
+import NewAddress from './NewAddress';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -60,22 +61,7 @@ export default function SimpleTabs() {
     setValue(newValue);
   };
 
-  const card = <div>
-    <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              Word of the Day
-            </Typography>            
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
-  </div>
+  const card = <ExistingAddress />
 
   return (
     <React.Fragment>
@@ -85,12 +71,12 @@ export default function SimpleTabs() {
           <Tab label="New Address" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0} children={card}>
-       
+      <TabPanel value={value} index={0}>
+        <ExistingAddress />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <NewAddress/>
         </TabPanel>
-        </React.Fragment>
+    </React.Fragment>
   );
 }

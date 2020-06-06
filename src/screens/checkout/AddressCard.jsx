@@ -52,29 +52,98 @@ export default function AddressCard() {
   
   return (
    <div>
-    { tileData.map((tile,index) => (
-    <Card className={classes.root} variant="outlined" >     
-      <CardContent component={'span'}>
-        <Typography variant="display4" className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography  variant="display3">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography variant="display2" className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography  variant="display1">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-     
-    </Card>  ))}
+    <Card className={classes.root} variant="outlined">
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            >
+              Word of the Day
+            </Typography>
+
+            <Typography className={classes.pos} color="textSecondary">
+              adjective
+            </Typography>
+            <Typography variant="body2" component="p">
+              well meaning and kindly.
+              <br />
+              {'"a benevolent smile"'}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </Card>
+        <Card className={classes.root} variant="outlined">
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            >
+              Word of the Day
+            </Typography>
+
+            <Typography className={classes.pos} color="textSecondary">
+              adjective
+            </Typography>
+            <Typography variant="body2" component="p">
+              well meaning and kindly.
+              <br />
+              {'"a benevolent smile"'}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </Card>
+        <Card className={classes.root} variant="outlined">
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            >
+              Word of the Day
+            </Typography>
+
+            <Typography className={classes.pos} color="textSecondary">
+              adjective
+            </Typography>
+            <Typography variant="body2" component="p">
+              well meaning and kindly.
+              <br />
+              {'"a benevolent smile"'}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </Card>
+        <Card className={classes.root} variant="outlined">
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            >
+              Word of the Day
+            </Typography>
+
+            <Typography className={classes.pos} color="textSecondary">
+              adjective
+            </Typography>
+            <Typography variant="body2" component="p">
+              well meaning and kindly.
+              <br />
+              {'"a benevolent smile"'}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </Card>
     </div>
   );
   
