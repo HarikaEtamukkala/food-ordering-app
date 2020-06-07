@@ -1,21 +1,15 @@
-import React ,{Component}from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
+import clsx from 'clsx';
+import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import AddressCard from '../checkout/AddressCard';
 import Button from '@material-ui/core/Button';
-import { green } from '@material-ui/core/colors';
-import {createMuiTheme} from "@material-ui/core";
+import GridList from '@material-ui/core/GridList';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
+import GridListTile from '@material-ui/core/GridListTile';
+import { green, grey, pink } from '@material-ui/core/colors';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 
 const styles = theme => ({
   root: {
@@ -24,13 +18,11 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
-    
   },
   gridList: {
     flexWrap: 'nowrap',
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
-    width: 'auto',
+    paddingBottom: 10,
   },
   title: {
     color: theme.palette.primary.light,
@@ -41,88 +33,122 @@ const styles = theme => ({
   },
   paper: {
     width: theme.spacing(30),
-    height:theme.spacing(50),
-    padding:theme.spacing(1),    
+    height: theme.spacing(50),
+    padding: theme.spacing(1),
     textAlign: '',
-    color:'#000000',
+    color: '#000000',
   },
-  checkCircle:{
-    marginLeft:theme.spacing(12),
-    marginTop:theme.spacing(2),
+  checkCircle: {
+    marginLeft: theme.spacing(12),
+    marginTop: theme.spacing(2),
+    color: '#000000',
+  },
+  addressGridTitle: {
+    height: '100% !important',
+    paddingBottom: 5,
+  },
+  addressButton: {
+    padding: 0,
+    width: "100%",
+  },
+  addressCard: {
+    textAlign: "left",
+    width: "100%",
+    border: "none",
+    borderRadius: 5,
+    boxShadow: "none",
+    border: `1px solid white`,
+    borderRight: `3px solid white`,
+    borderBottom: `3px solid white`,
+    "&:hover": {
+      backgroundColor: "transparent"
+    },
+  },
+  addressCardSelected: {
+    textAlign: "left",
+    width: "100%",
+    border: `1px solid ${pink[500]}`,
+    borderRight: `3px solid ${pink[500]}`,
+    borderBottom: `3px solid ${pink[500]}`,
+  },
+  addressStateIcon: {
+    float: "right",
+  },
+  addressStateIconSelected: {
+    backgroundColor: "green",
   }
 })
 
- class ExistingAddress extends Component{
+class ExistingAddress extends Component {
 
   constructor () {
     super();
     this.state = {
-        color:''
+      color: '',
+      selectedIndex: -1,
     }
-}
-  handleChange=(e)=>{
-    console.log("clicked")
-    
   }
-  render(){   
-    const { classes } = this.props;
-    const tileData = [
-    {
-      flat: "Alta 503 ",
-      locality:"SJR Fiesta Homes",
-      city: 'Bangalore',
-      state: 'Karanataka',
-      pincode:'548909'
-    },
-    {
-      flat: "Alta 503 ",
-      locality:"SJR Fiesta Homes",
-      city: 'Bangalore',
-      state: 'Karanataka',
-      pincode:'548909'
-    },
-    {
-      flat: "Alta 503 ",
-      locality:"SJR Fiesta Homes",
-      city: 'Bangalore',
-      state: 'Karanataka',
-      pincode:'548909'
-    },
 
-    
-  ];
-  
- 
- return(
-    <div className={classes.root}>
-    <GridList className={classes.gridList} cols={3}>
-      {tileData.map((tile,index) => (
-        <GridListTile key={index}>
-           <Paper className={classes.paper} >
-           <Typography gutterBottom >
-             {tile.flat}
-            </Typography>
-            <Typography  >
-              {tile.locality}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {tile.city}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {tile.state}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {tile.pincode}
-            </Typography>
-            <IconButton className={classes.checkCircle} onClick={()=>this.handleChange()}><CheckCircleIcon /></IconButton>
-           </Paper>
-       
-        </GridListTile>
-      ))}
-    </GridList>
-  </div>
-    
-  );
+  handleAddressSelect = (index) => {
+    this.setState({
+      selectedIndex: index
+    });
+  }
+
+  render() {
+    const { selectedIndex } = this.state;
+    const { classes } = this.props;
+    const tileData = [{
+      flat: "Alta 503 ",
+      locality: "SJR Fiesta Homes",
+      city: 'Bangalore',
+      state: 'Karanataka',
+      pincode: '548909'
+    }, {
+      flat: "Alta 503 ",
+      locality: "SJR Fiesta Homes asdf asdfasdf adf we efasdf adfwawef dfsadf asdfasdfasdfasdfadfasdfadfadfadsf asdfadasdf adsfasdfadsf asdfa fasf asdfadsfasd",
+      city: 'Bangalore',
+      state: 'Karanataka',
+      pincode: '548909'
+    }, {
+      flat: "Alta 503 ",
+      locality: "SJR Fiesta Homes asdfa sdfasdfa edfawe fasdasdfsadf adsfasdf ",
+      city: 'Bangalore',
+      state: 'Karanataka',
+      pincode: '548909'
+    }];
+
+
+    return (
+      <div className={classes.root}>
+        <GridList spacing={2} className={classes.gridList} cols={3}>
+          {tileData.map((tile, index) => (
+            <GridListTile key={index} className={classes.addressGridTitle}>
+              <Button className={classes.addressButton}>
+                <Card onClick={() => this.handleAddressSelect(index)} className={
+                    clsx(classes.addressCard, {
+                      [classes.addressCardSelected]: (selectedIndex === index),
+                    })
+                  }
+                >
+                  <CardContent>
+                    <Typography gutterBottom>{tile.flat}</Typography>
+                    <Typography >{tile.locality}</Typography>
+                    <Typography variant="body2" component="p">{tile.city}</Typography>
+                    <Typography variant="body2" component="p">{tile.state}</Typography>
+                    <Typography variant="body2" component="p">{tile.pincode}</Typography>
+                    <Typography className={classes.addressStateIcon} aria-label="add to favorites" onClick={() => this.handleChange()}>
+                      <CheckCircleIcon style={{ color: (selectedIndex === index) ? green[500]: grey[900] }} />
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Button>
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
+    );
+  }
 }
-}
+
 export default withStyles(styles)(ExistingAddress);

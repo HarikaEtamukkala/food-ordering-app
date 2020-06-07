@@ -9,7 +9,7 @@ import StopIcon from '@material-ui/icons/Stop';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Header from '../../common/Header';
-import VerticalStepper from '../checkout/Stepper';
+import VerticalStepper from './VerticalStepper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
 import {createMuiTheme,responsiveFontSizes,MuiThemeProvider,Typography} from "@material-ui/core";

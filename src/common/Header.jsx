@@ -32,7 +32,7 @@ class Header extends Component {
         return (
             <React.Fragment>
                 {this.props.checkout}
-                <Grid container spacing={3}>
+                <Grid container>
                     <div className={classes.root}>
                         <AppBar position="relative" style={{ background: '#263238' }} >
                             <Toolbar>

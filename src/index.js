@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Header from './common/Header';
 import Checkout from './screens/checkout/Checkout';
 
 ReactDOM.render(

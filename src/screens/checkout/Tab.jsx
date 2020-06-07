@@ -1,18 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ExistingAddress from '../checkout/ExistingAddress';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Button from '@material-ui/core/Button';
 import NewAddress from './NewAddress';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -46,22 +41,12 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
 export default function SimpleTabs() {
-  const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const card = <ExistingAddress />
 
   return (
     <React.Fragment>
@@ -75,8 +60,8 @@ export default function SimpleTabs() {
         <ExistingAddress />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <NewAddress/>
-        </TabPanel>
+        <NewAddress />
+      </TabPanel>
     </React.Fragment>
   );
 }
