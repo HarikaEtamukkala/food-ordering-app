@@ -15,11 +15,11 @@ class RestaurantDetails extends Component {
           </div>
           <div style={{float:'left', display:"flex", flexDirection:"row", width:"100%", paddingTop:"5%"}}>
             <div style={{width:"100%"}}>
-            <i className="fa fa-star" aria-hidden="true"> {this.props.rating} </i>
+            <i className="fa fa-star" aria-hidden="true"> {this.props.rating} </i> <br/>
             <Typography variant="caption" gutterBottom> AVERAGE RATING BY <br /> <span style={{fontWeight: 'bold'}}> {this.props.numberOfCustomers} </span> USERS </Typography>
             </div>
             <div style={{width:"100%"}}>
-            <i className="fa fa-inr" aria-hidden="true"> {this.props.averagePrice} </i>
+            <i className="fa fa-rupee-sign" aria-hidden="true"> {this.props.averagePrice} </i> <br/>
             <Typography variant="caption" gutterBottom> AVERAGE COST FOR <br /> TWO PEOPLE </Typography>
             </div>
           </div>

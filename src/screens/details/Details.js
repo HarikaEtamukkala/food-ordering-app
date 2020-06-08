@@ -46,7 +46,7 @@ class Details extends Component{
             <div>
                 <Header/>
                 <div className="restaurant-section">
-                <RestaurantDetails restaurantName={this.state.restaurantName} restaurantLocality={this.state.restaurantLocality} photoUrl={this.state.photoUrl} rating={this.state.rating} numberOfContomers={this.state.numberOfContomers} averagePrice={this.state.averagePrice} categories={this.state.categories}/>
+                <RestaurantDetails restaurantName={this.state.restaurantName} restaurantLocality={this.state.restaurantLocality} photoUrl={this.state.photoUrl} rating={this.state.rating} numberOfCustomers={this.state.numberOfCustomers} averagePrice={this.state.averagePrice} categories={this.state.categories}/>
                     
                 </div>
                 <div className="menu-cart-section">
