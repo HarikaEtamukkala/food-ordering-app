@@ -41,7 +41,7 @@ function a11yProps(index) {
   };
 }
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -57,7 +57,7 @@ export default function SimpleTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <ExistingAddress />
+        <ExistingAddress addresses={props.addresses} handleAddressSelect={props.handleAddressSelect()}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <NewAddress />

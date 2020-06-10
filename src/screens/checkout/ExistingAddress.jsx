@@ -31,25 +31,21 @@ const styles = theme => ({
     background:
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
-  paper: {
-    width: theme.spacing(30),
-    height: theme.spacing(50),
-    padding: theme.spacing(1),
-    textAlign: '',
-    color: '#000000',
-  },
+  
   checkCircle: {
     marginLeft: theme.spacing(12),
     marginTop: theme.spacing(2),
     color: '#000000',
   },
   addressGridTitle: {
-    height: '100% !important',
+    height: '100% !important',   
     paddingBottom: 5,
+    width:'30% !important',
+    wordWrap: "break-word",
   },
   addressButton: {
     padding: 0,
-    width: "100%",
+    width: "100% !important",
   },
   addressCard: {
     textAlign: "left",
@@ -63,6 +59,7 @@ const styles = theme => ({
     "&:hover": {
       backgroundColor: "transparent"
     },
+    wordWrap: "break-word",
   },
   addressCardSelected: {
     textAlign: "left",
@@ -86,10 +83,12 @@ class ExistingAddress extends Component {
     this.state = {
       color: '',
       selectedIndex: -1,
+      
     }
+    this.selectAddress.bind(this);
   }
 
-  handleAddressSelect = (index) => {
+  selectAddress = (index) => {
     this.setState({
       selectedIndex: index
     });
@@ -97,48 +96,28 @@ class ExistingAddress extends Component {
 
   render() {
     const { selectedIndex } = this.state;
-    const { classes } = this.props;
-    const tileData = [{
-      flat: "Alta 503 ",
-      locality: "SJR Fiesta Homes",
-      city: 'Bangalore',
-      state: 'Karanataka',
-      pincode: '548909'
-    }, {
-      flat: "Alta 503 ",
-      locality: "SJR Fiesta Homes asdf asdfasdf adf we efasdf adfwawef dfsadf asdfasdfasdfasdfadfasdfadfadfadsf asdfadasdf adsfasdfadsf asdfa fasf asdfadsfasd",
-      city: 'Bangalore',
-      state: 'Karanataka',
-      pincode: '548909'
-    }, {
-      flat: "Alta 503 ",
-      locality: "SJR Fiesta Homes asdfa sdfasdfa edfawe fasdasdfsadf adsfasdf ",
-      city: 'Bangalore',
-      state: 'Karanataka',
-      pincode: '548909'
-    }];
-
-
+    const { classes } = this.props;    
+      
     return (
       <div className={classes.root}>
         <GridList spacing={2} className={classes.gridList} cols={3}>
-          {tileData.map((tile, index) => (
-            <GridListTile key={index} className={classes.addressGridTitle}>
+          {this.props.addresses && this.props.addresses.map((address) => (
+            <GridListTile key={address.id} className={classes.addressGridTitle}>
               <Button className={classes.addressButton}>
-                <Card onClick={() => this.handleAddressSelect(index)} className={
+                <Card onClick={() => {this.props.handleAddressSelect(address.id);this.selectAddress(address.id)}} className={
                     clsx(classes.addressCard, {
-                      [classes.addressCardSelected]: (selectedIndex === index),
+                      [classes.addressCardSelected]: (selectedIndex === address.id),
                     })
                   }
                 >
-                  <CardContent>
-                    <Typography gutterBottom>{tile.flat}</Typography>
-                    <Typography >{tile.locality}</Typography>
-                    <Typography variant="body2" component="p">{tile.city}</Typography>
-                    <Typography variant="body2" component="p">{tile.state}</Typography>
-                    <Typography variant="body2" component="p">{tile.pincode}</Typography>
-                    <Typography className={classes.addressStateIcon} aria-label="add to favorites" onClick={() => this.handleChange()}>
-                      <CheckCircleIcon style={{ color: (selectedIndex === index) ? green[500]: grey[900] }} />
+                  <CardContent >
+                    <Typography variant="body2" component="p" gutterBottom>{address.flat_building_name}</Typography>
+                    <Typography >{address.locality}</Typography>
+                    <Typography variant="body2" component="p">{address.city}</Typography>
+                    <Typography variant="body2" component="p">{address.state.state_name}</Typography>
+                    <Typography variant="body2" component="p">{address.pincode}</Typography>
+                    <Typography className={classes.addressStateIcon} aria-label="add to favorites">
+                      <CheckCircleIcon style={{ color: (selectedIndex === address.id) ? green[500]: grey[900] }} />
                     </Typography>
                   </CardContent>
                 </Card>

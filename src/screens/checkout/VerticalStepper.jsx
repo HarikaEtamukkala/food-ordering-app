@@ -6,8 +6,14 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import Typography from '@material-ui/core/Typography';
 import SimpleTabs from './Tab';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   resetContainer: {
     padding: theme.spacing(3),
   },
+  error:{
+    color:'red',
+  }
 }));
 
 function getSteps() {
@@ -31,13 +40,53 @@ function getSteps() {
 
 
 
-export default function VerticalStepper() {
+export default function VerticalStepper(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const [value, setValue] = React.useState('female');
+  const [error, setError] = React.useState('false');
 
-  const handleNext = () => {
+  const valueChangehandler = (event) => {
+    console.log(event.target.value)
+    setValue(event.target.value);
+  };
+
+  const payment = <div><FormControl component="fieldset">
+    <FormLabel component="legend">Select Mode of Payment</FormLabel>
+
+    <RadioGroup aria-label="payment" name="payment1" value={value} onChange={props.handleChange()}>
+      {props.paymentMethods && props.paymentMethods.map((payment, index) => (
+        <div key={index}>
+          <FormControlLabel value={payment.id} control={<Radio />} label={payment.payment_name} onChange={valueChangehandler} />
+        </div>
+
+      ))}
+    </RadioGroup>
+
+  </FormControl></div>
+  const getStepContent = (step) => {
+
+    switch (step) {
+      case 0:
+        return <SimpleTabs addresses={props.addresses} handleAddressSelect={props.handleAddressSelect} />
+      case 1:
+        return payment;
+
+
+      default:
+        return 'Unknown step';
+    }
+  }
+
+   const handleNext = () => { 
+     console.log(props.selectedAddress) ;
+    if(props.selectedAddress!==''){
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setError('false');
+    }else{
+      setError('true');
+    }
   };
 
   const handleBack = () => {
@@ -55,8 +104,9 @@ export default function VerticalStepper() {
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
             <StepContent>
-              <SimpleTabs/>
+              {getStepContent(index, props)}
               <div className={classes.actionsContainer}>
+                {error==='true' && <div className={classes.error}>Please select any one address</div>}
                 <div>
                   <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                     Back
@@ -78,6 +128,6 @@ export default function VerticalStepper() {
           </Button>
         </Paper>
       )}
-   </React.Fragment>
+    </React.Fragment>
   );
 }

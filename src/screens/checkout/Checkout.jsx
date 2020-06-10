@@ -12,11 +12,11 @@ import Header from '../../common/Header';
 import VerticalStepper from './VerticalStepper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
-import {createMuiTheme,responsiveFontSizes,MuiThemeProvider,Typography} from "@material-ui/core";
-  
-  let theme = createMuiTheme();
-  theme = responsiveFontSizes(theme);
-  
+import { createMuiTheme, responsiveFontSizes, MuiThemeProvider, Typography } from "@material-ui/core";
+
+let theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
+
 
 const styles = theme => ({
     root: {
@@ -31,7 +31,7 @@ const styles = theme => ({
     card: {
         minWidth: 275,
         margin: 40,
-        
+
     },
     pos: {
         marginBottom: 12,
@@ -50,55 +50,111 @@ class Checkout extends Component {
         this.state = {
             steps: ["Delivery", "Payment"],
             activeStep: '',
+            addresses: [],
+            paymentMethods: [],
+            selectedPayment: '',
+            selectedAddress:''
         }
+        this.handleAddressSelect.bind(this);
     }
 
+    componentWillMount() {
+        let that = this;
+        let addressesData = null;
+        let xhrMovie = new XMLHttpRequest();
+        xhrMovie.addEventListener("readystatechange", function () {
 
+            if (this.readyState === 4) {
+                console.log(JSON.parse(this.responseText));
+                that.setState({
+                    addresses: JSON.parse(this.responseText).addresses
+                });
+            }
+        });
+        console.log(this.state.addresses);
+        xhrMovie.open("GET", this.props.baseUrl + "address/customer");
+        xhrMovie.setRequestHeader("Cache-Control", "no-cache");
+        xhrMovie.setRequestHeader('Content-Type', 'application/json');
+        xhrMovie.setRequestHeader('authorization', "Bearer access");
+        xhrMovie.send(addressesData);
+
+        let paymentData = null;
+        let xhrPayment = new XMLHttpRequest();
+        xhrPayment.addEventListener("readystatechange", function () {
+
+            if (this.readyState === 4) {
+                console.log("+++++++++++" + JSON.parse(this.responseText));
+                that.setState({
+                    paymentMethods: JSON.parse(this.responseText).paymentMethods
+                });
+            }
+        });
+
+        xhrPayment.open("GET", this.props.baseUrl + "payment");
+        xhrPayment.setRequestHeader("Cache-Control", "no-cache");
+        xhrPayment.setRequestHeader('Content-Type', 'application/json');
+        xhrPayment.setRequestHeader('authorization', "Bearer access");
+        xhrPayment.send(paymentData);
+    }
+    handleChange = (event) => {
+        this.setState({
+            selectedPayment: event.target.value
+        })
+    }
+    handleAddressSelect = (index) => {
+        console.log("checkout"+index);
+        this.setState({
+            selectedAddress: index
+        });
+      }
+     
     render() {
         const { classes } = this.props;
+
         return (
             <React.Fragment>
                 <Header />
                 <MuiThemeProvider theme={theme}>
-                <Grid container>
-                    <Grid item xs>
-                        <VerticalStepper/>
-                    </Grid>
-                    <Grid >                   
-                        <Card className={classes.card}>
-                            <CardContent>                            
-                            <Typography variant="h5" gutterBottom>
-                                    Summary
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={8}>
+                            <VerticalStepper addresses={this.state.addresses} paymentMethods={this.state.paymentMethods} handleChange={() => this.handleChange}
+                            handleAddressSelect={()=>this.handleAddressSelect}  selectedAddress={this.state.selectedAddress}/>
+                        </Grid>
+                        <Grid item xs={10} sm={4}>
+                            <Card className={classes.card}>
+                                <CardContent>
+                                    <Typography variant="h5" gutterBottom>
+                                        Summary
                             </Typography>
-                                <Typography className={classes.pos} color="textSecondary">
-                                    Restaurant Name
+                                    <Typography className={classes.pos} color="textSecondary">
+                                        Restaurant Name
                              </Typography>
-                                <Typography variant="body2" component="span">
-                                    <Box display="flex" flexDirection="row" >
-                                        <Box p={2}>
-                                            <StopIcon color="secondary"></StopIcon>
+                                    <Typography variant="body2" component="span">
+                                        <Box display="flex" flexDirection="row" >
+                                            <Box p={2}>
+                                                <StopIcon color="secondary"></StopIcon>
+                                            </Box>
+                                            <Box p={2}>
+                                                <Typography> Menu Item</Typography>
+                                            </Box>
+                                            <Box p={2}>
+                                                <Typography> 1</Typography>
+                                            </Box>
+                                            <Box p={2}>
+                                                <FontAwesomeIcon icon={faRupeeSign} />
+                                            </Box>
                                         </Box>
-                                        <Box p={2}>
-                                            <Typography> Menu Item</Typography>
-                                        </Box>
-                                        <Box p={2}>
-                                            <Typography> 1</Typography>
-                                        </Box>
-                                        <Box p={2}>
-                                        <FontAwesomeIcon icon={faRupeeSign} />
-                                        </Box>
-                                    </Box>
-                                </Typography>                               
-                                <Divider light />
-                            </CardContent>                            
-                            <CardActions color="primary">
-                                <Button variant="contained" className={classes.margin} color="primary" href="#contained-buttons" size="large">
-                                    Place Order
+                                    </Typography>
+                                    <Divider light />
+                                </CardContent>
+                                <CardActions color="primary">
+                                    <Button variant="contained" className={classes.margin} color="primary" href="#contained-buttons" size="large">
+                                        Place Order
                                 </Button>
-                            </CardActions>
-                        </Card>                       
+                                </CardActions>
+                            </Card>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </MuiThemeProvider>
             </React.Fragment>
         )

@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Checkout from './screens/checkout/Checkout';
+import Controller from './screens/Controller';
 
 ReactDOM.render(
     <div>
-       <Checkout/>
+       <Controller/>
     </div>,
     document.getElementById('root')
 );
