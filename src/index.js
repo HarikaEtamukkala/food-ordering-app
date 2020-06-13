@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import Home from './screens/home/Home';
+
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 ReactDOM.render(
-    <div>
-        Food Ordering App
-    </div>,
+    <Router>
+        <Route exact path='/' component={Home}/>
+    </Router>,
     document.getElementById('root')
 );
 
