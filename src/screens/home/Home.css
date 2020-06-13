@@ -4,15 +4,15 @@
     }
 }
 
-@media (max-width: 1000px) {
-    .cardContainer .restaurantCard {
-        width: 46%;
-    }
-}
-
 @media (max-width: 660px) {
     .cardContainer .restaurantCard {
         width: 93%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .cardContainer .restaurantCard {
+        width: 46%;
     }
 }
 
@@ -35,9 +35,10 @@
 
 .ratingContainer {
     opacity: 0.8;
-    padding: 0 0.8rem;
     color: #FFFFFF;
     background-color: #DAA520;
+    padding: 0 0.8rem;
+    font-size: 16px;
 }
 
 .ratingContainer p,
