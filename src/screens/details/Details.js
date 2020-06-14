@@ -4,7 +4,9 @@ import './Details.css';
 import Category from './Category';
 import Cart from './Cart';
 import RestaurantDetails from './RestaurantDetails';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
 
 class Details extends Component{
 
@@ -18,13 +20,20 @@ class Details extends Component{
             rating : "",
             numberOfCustomers : "",
             averagePrice : "" ,
+            snackBarOpen : false,
+            snackbarMessage : "",
+            cartItemCount : 0,
+            cartItemList : [],
+            cartTotalPrice : 0
 
-        }
+        };
     }
 
     componentDidMount(){
       
-        fetch('http://localhost:8080/api/restaurant/246165d2-a238-11e8-9077-720006ceb890',{
+      const path = this.props.history.location.pathname;
+      const id = path.substring(9, path.length);
+        fetch('http://localhost:8080/api/restaurant/'+id,{
           method: 'GET',
         })
         .then(res => res.json())
@@ -41,6 +50,77 @@ class Details extends Component{
         })
         .catch(console.log)
     }
+
+    handleSnackBar = (message) => {
+    this.setState({
+      snackbarOpen: !this.state.snackbarOpen,
+      snackbarMessage: message,
+    });
+  }
+
+  addItem = (item) => {
+    this.handleSnackBar("Item added to cart!");
+    let cartItemList = this.state.cartItemList;
+    var index = cartItemList.indexOf(item);
+    cartItemList[index].quantity +=1;
+    this.setState({
+      cartItemCount : this.state.cartItemCount + 1,
+      cartItemList : cartItemList,
+      cartTotalPrice : this.state.cartTotalPrice + item.item.price
+    })
+    
+  }
+
+  removeItem = (item) => {
+    this.handleSnackBar("Item removed from cart!");
+    let cartItemList = this.state.cartItemList;
+    var index = cartItemList.indexOf(item);
+    if(cartItemList[index].quantity>1)
+      cartItemList[index].quantity -=1;
+    else
+      cartItemList.splice(index,1);
+    if(cartItemList.length > 0)
+    this.setState({
+        cartItemCount : this.state.cartItemCount - 1,
+        cartItemList : cartItemList,
+        cartTotalPrice : this.state.cartTotalPrice - item.item.price
+      })
+    else
+    this.setState({
+      cartItemCount : 0,
+      cartItemList : [],
+      cartTotalPrice : 0
+    })
+      
+  }
+  
+
+  addMenuItemHandler = (item) => {
+    this.handleSnackBar("Item added to cart!");
+    let cartItemList = this.state.cartItemList;
+    var cartItem;
+    var index = cartItemList.findIndex(element => element.id===item.id);
+    if(index===-1)
+    {
+      cartItem = {
+        item : item,
+        quantity : 1 
+      };
+      cartItemList.push(cartItem);
+   }
+   else 
+   {
+     cartItemList[index].quantity +=1;
+   }
+
+   this.setState({
+     cartItemCount : this.state.cartItemCount + 1,
+     cartItemList : cartItemList,
+     cartTotalPrice : this.state.cartTotalPrice + item.price
+   })
+  }
+
+  
     render(){
         return(
             <div>
@@ -50,9 +130,35 @@ class Details extends Component{
                     
                 </div>
                 <div className="menu-cart-section">
-                <Category categories={this.state.categories} this={this}/>
-                <Cart/>
+                <Category categories={this.state.categories}   addMenuItemHandler={this.addMenuItemHandler.bind(this)}/>
+                <Cart cartItemCount={this.state.cartItemCount} cartItemList={this.state.cartItemList} cartTotalPrice={this.state.cartTotalPrice} 
+                handleSnackBar={this.handleSnackBar} addItem={this.addItem.bind(this)} removeItem={this.removeItem.bind(this)} history={this.props.history} />
                 </div>
+
+                <Snackbar
+                    anchorOrigin={{
+                       vertical: 'bottom',
+                       horizontal: 'left',
+                    }}
+                    open={this.state.snackbarOpen}
+                    autoHideDuration={1000}
+                    onClose={(e) => this.handleSnackBar("")}
+                    ContentProps={{
+                     'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">{this.state.snackbarMessage}</span>}
+                    action={[
+                       <IconButton
+                          key="close"
+                          aria-label="Close"
+                          color="inherit"
+                          onClick={(e) => this.handleSnackBar("")}
+                        >
+                         <Close/>
+                        </IconButton>,
+                       ]}
+                    />
+
             </div>
         )
     }
