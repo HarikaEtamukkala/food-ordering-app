@@ -10,13 +10,20 @@ import Button from '@material-ui/core/Button';
 class Cart extends Component {
 
     checkoutHandler = (event) => {
-       if(this.props.cartItemCount===0)
+       if(this.props.cartItemCount===0){
          this.props.handleSnackBar("Cart is empty");
+         return;
+       }
+       if(sessionStorage.getItem("access-token")==null) {
+         this.props.handleSnackBar("Please login first!")
+         return;
+       }
          let cart = {
            cartItemList : this.props.cartItemList,
            cartItemCount : this.props.cartItemCount,
            cartTotalPrice : this.props.cartTotalPrice
          }
+        
          sessionStorage.setItem("cart", JSON.stringify(cart));
          this.props.history.push('/checkout');  
     }

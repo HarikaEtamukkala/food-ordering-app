@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
-
-import App from './App';
+import Home from './screens/home/Home';
+import Details from './screens/details/Details';
+import Checkout from './screens/checkout/Checkout'
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
+    <Router>
+        <Route exact path='/' component={Home}/>
+        <Route exact path='/details/:id' render={({history}, props) => <Details {...props} history={history}/>} />
+        <Route exact path='/checkout' render={({history}, props) => <Checkout {...props} history={history}/>} />
+    </Router>,
     document.getElementById('root')
 );
 
