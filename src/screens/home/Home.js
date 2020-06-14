@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../../common/header/Header';
 import {Card, CardContent, CardMedia} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import './Home.css';
-
-// import Header from './../../common/header/Header';
+import * as Utils from "../../common/Utils";
+import * as Constants from "../../common/Constants";
 
 function styles() {
     return {
@@ -22,6 +23,10 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        this.getAllRestaurantData();
+    }
+
+    getAllRestaurantData(){
         let getAllRestaurantsUrl = `http://localhost:8080/api/restaurant`;
         fetch(getAllRestaurantsUrl)
             .then(result => result.json())
@@ -34,7 +39,7 @@ class Home extends React.Component {
         const {classes} = this.props;
         const {restaurants} = this.state;
         return <>
-            {/*<Header/>*/}
+            <Header logoutHandler={this.loginredirect} baseUrl={this.props.baseUrl} searchRestaurantsByName={this.searchRestaurantsByName} showSearch={true} history={this.props.history} />
             <div className='cardContainer'>
                 {!(restaurants && 0 < restaurants.length) ? null : restaurants.map(this.restaurantList(classes))}
             </div>
@@ -66,6 +71,40 @@ class Home extends React.Component {
                 </CardContent>
             </Card>;
         };
+    }
+
+    searchRestaurantsByName = event => {
+        const searchValue = event.target.value;
+        const requestUrl = "http://localhost:8080/api/" + "restaurant/name/" + searchValue;
+        const that = this;
+        console.log(requestUrl);
+        if (!Utils.isEmpty(searchValue)) {
+            Utils.makeApiCall(
+                requestUrl,
+                null,
+                null,
+                Constants.ApiRequestTypeEnum.GET,
+                null,
+                responseText => {
+                    that.setState(
+                        {
+                            imageData: JSON.parse(responseText).restaurants
+                        }
+                    );
+                },
+                () => { }
+            );
+        } else {
+            this.getAllRestaurantData();
+        }
+    };
+
+    loginredirect = () => {
+        sessionStorage.clear();
+        this.props.history.push({
+            pathname: "/"
+        });
+        window.location.reload();
     }
 }
 
