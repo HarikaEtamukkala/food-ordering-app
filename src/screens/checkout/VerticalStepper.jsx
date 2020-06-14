@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
   resetContainer: {
     padding: theme.spacing(3),
   },
-  error:{
-    color:'red',
+  error: {
+    color: 'red',
   }
 }));
 
@@ -38,17 +38,14 @@ function getSteps() {
   return ['Delivery', 'Payment'];
 }
 
-
-
 export default function VerticalStepper(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const [value, setValue] = React.useState('female');
-  const [error, setError] = React.useState('false');
-
+  //const [error, setError] = React.useState('false');
+ 
   const valueChangehandler = (event) => {
-    console.log(event.target.value)
     setValue(event.target.value);
   };
 
@@ -69,7 +66,8 @@ export default function VerticalStepper(props) {
 
     switch (step) {
       case 0:
-        return <SimpleTabs addresses={props.addresses} handleAddressSelect={props.handleAddressSelect} />
+        return <SimpleTabs baseUrl={props.baseUrl} handleAddressSelect={props.handleAddressSelect}
+          states={props.states} handleAddress={() => props.handleAddress} selectedAddress={props.selectedAddress} />
       case 1:
         return payment;
 
@@ -79,14 +77,14 @@ export default function VerticalStepper(props) {
     }
   }
 
-   const handleNext = () => { 
-     console.log(props.selectedAddress) ;
-    if(props.selectedAddress!==''){
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setError('false');
-    }else{
-      setError('true');
+  const handleNext = () => {
+    if (props.selectedAddress !== '') {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
+      // setError('false');
+    // } else {
+    //   setError('true');
+    // }
   };
 
   const handleBack = () => {
@@ -106,7 +104,7 @@ export default function VerticalStepper(props) {
             <StepContent>
               {getStepContent(index, props)}
               <div className={classes.actionsContainer}>
-                {error==='true' && <div className={classes.error}>Please select any one address</div>}
+                {/* {error === 'true' && <div className={classes.error}>Please select any one address</div>} */}
                 <div>
                   <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                     Back
@@ -122,9 +120,9 @@ export default function VerticalStepper(props) {
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Typography variant="h5">View the summary &apos;and place your order now! </Typography>
           <Button onClick={handleReset} className={classes.button}>
-            Reset
+            CHANGE
           </Button>
         </Paper>
       )}
