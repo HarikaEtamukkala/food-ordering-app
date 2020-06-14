@@ -12,8 +12,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   paper: {
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
+    
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }
@@ -55,8 +54,11 @@ class CartItem extends Component {
             <Grid item xs={2}>
             <Typography className={classes.paper}> {this.props.cartItem.quantity}</Typography>
             </Grid>
-            <Grid item xs={2}>            
-            <i className={classes.paper} className="fa fa-rupee-sign" >{this.props.cartItem.item.price}</i>
+            <Grid item xs={2}>    
+            <div id="checkout">       
+            <i className={classes.paper} id="checkout" className="fa fa-rupee-sign" component="span" > 
+              {this.props.cartItem.item.price}
+              </i></div> 
               </Grid>
              </Grid>
     </div>}

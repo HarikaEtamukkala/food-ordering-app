@@ -94,8 +94,7 @@ const styles = theme => ({
   },
   addressCard: {
     textAlign: "left",
-    width: "100%",
-    border: "none",
+    width: "100%",    
     borderRadius: 5,
     boxShadow: "none",
     border: `1px solid white`,
@@ -267,9 +266,9 @@ class SimpleTabs extends Component {
     this.state.locality === "" ? this.setState({ reqLocality: "dispBlock" }) : this.setState({ reqLocality: "dispNone" });
     this.state.city === "" ? this.setState({ reqCity: "dispBlock" }) : this.setState({ reqCity: "dispNone" });
     this.state.state === "" ? this.setState({ reqState: "dispBlock" }) : this.setState({ reqState: "dispNone" });
-    this.state.pincode === 0 ? this.setState({ reqPincode: "dispBlock" }) : this.setState({ reqPincode: "dispNone" });
+    this.state.pincode === "" ? this.setState({ reqPincode: "dispBlock" }) : this.setState({ reqPincode: "dispNone" });
 
-    if ((this.state.flat === "") || (this.state.locality === "") || (this.state.city === "") || (this.state.state === "") || (this.state.pincode === 0)) { return; }
+    if ((this.state.flat === "") || (this.state.locality === "") || (this.state.city === "") || (this.state.state === "") || (this.state.pincode === "")) { return; }
 
     if (!Number(this.state.pincode)) {
       this.setState({ verifyPinCode: "dispBlock" })
