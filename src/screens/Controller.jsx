@@ -8,7 +8,7 @@ const headers = () => {
     const h = new Headers();
     h.append('Content-Type','application/json');
     const session ={
-        token:localStorage.getItem('token')
+        token:sessionStorage.getItem('access-token')
     }
     if(session.token){
         h.append('authorization',session.token )
@@ -19,7 +19,7 @@ class Controller extends Component{
     constructor() {
         super();
         this.baseUrl = "http://localhost:8080/api/";
-        this.headers = headers();
+        this.accessToken =sessionStorage.getItem('access-token');     
       }
     render(){
         return(
@@ -27,7 +27,7 @@ class Controller extends Component{
                     <div>
                     <Route exact path='/' component={Home}/>
                     <Route exact path='/details/:id' render={({history}, props) => <Details {...props} history={history}/>} />
-                     <Route exact path='/checkout' render={({history}, props) => <Checkout {...props} baseUrl={this.baseUrl} history={history}/>} />
+                     <Route exact path='/checkout' render={({history}, props) => <Checkout {...props} baseUrl={this.baseUrl} accessToken={this.accessToken} history={history}/>} />
                     {/* <Route exact path="/checkout" render={(props)=> <Checkout {...props} baseUrl={this.baseUrl} headers={this.headers}/>}></Route> */}
                     </div>
                 </Router>

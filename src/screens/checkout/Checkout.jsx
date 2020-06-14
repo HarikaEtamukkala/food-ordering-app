@@ -5,23 +5,16 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import StopIcon from '@material-ui/icons/Stop';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Header from '../../common/Header';
 import VerticalStepper from './VerticalStepper';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import Badge from '@material-ui/core/Badge';
 import CartItem from '../details/CartItem';
 import { createMuiTheme, responsiveFontSizes, MuiThemeProvider, Typography } from "@material-ui/core";
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
-
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -41,13 +34,11 @@ const styles = theme => ({
         marginBottom: 12,
     },
     margin: {
-        margin: theme.spacing(2),        
+        margin: theme.spacing(2),
         width: '80% !important',
-        paddingLeft:theme.spacing(4)
+        paddingLeft: theme.spacing(4)
     },
 })
-
-
 class Checkout extends Component {
     constructor () {
         super();
@@ -78,15 +69,7 @@ class Checkout extends Component {
         }
         this.handleAddressSelect.bind(this);
     }
-    // componentDidMount(){
-    //     console.log(sessionStorage.getItem("cart"));
-    //     let cart = sessionStorage.getItem("cart");
-    //     console.log(JSON.stringify(cart))
-    //    this.setState({
-    //     cartItemList:cart
-    //    })
-    // }
-
+   
     componentWillMount() {
         let that = this;
         let addressesData = null;
@@ -102,7 +85,7 @@ class Checkout extends Component {
         xhrAddress.open("GET", this.props.baseUrl + "address/customer");
         xhrAddress.setRequestHeader("Cache-Control", "no-cache");
         xhrAddress.setRequestHeader('Content-Type', 'application/json');
-        xhrAddress.setRequestHeader('authorization', "Bearer access");
+        xhrAddress.setRequestHeader('authorization', "Bearer "+this.props.accessToken);
         xhrAddress.send(addressesData);
 
         let paymentData = null;
@@ -119,7 +102,7 @@ class Checkout extends Component {
         xhrPayment.open("GET", this.props.baseUrl + "payment");
         xhrPayment.setRequestHeader("Cache-Control", "no-cache");
         xhrPayment.setRequestHeader('Content-Type', 'application/json');
-        xhrPayment.setRequestHeader('authorization', "Bearer access");
+        xhrPayment.setRequestHeader('authorization', "Bearer "+this.props.accessToken);
         xhrPayment.send(paymentData);
 
         let states = null;
@@ -136,7 +119,7 @@ class Checkout extends Component {
         xhrStates.open("GET", this.props.baseUrl + "states");
         xhrStates.setRequestHeader("Cache-Control", "no-cache");
         xhrStates.setRequestHeader('Content-Type', 'application/json');
-        xhrStates.setRequestHeader('authorization', "Bearer access");
+        xhrStates.setRequestHeader('authorization', "Bearer "+this.props.accessToken);
         xhrStates.send(states);
 
     }
@@ -208,7 +191,7 @@ class Checkout extends Component {
     };
     render() {
         const { classes } = this.props;
-        console.log("cartList" + this.state.cartItemList.cartTotalPrice)
+        console.log("cartList" + this.state.cartItemList)
         return (
             <React.Fragment>
                 <Header />
@@ -224,35 +207,36 @@ class Checkout extends Component {
                                 states={this.state.states}
                                 onNewAddress={this.handleNewAddress} />
                         </Grid>
-                        <Grid item xs={10} sm={4}>                           
+                        <Grid item xs={10} sm={4}>
                             <Card className={classes.card}>
                                 <CardContent>
                                     <div>
-                                        <div><Typography variant="h5" gutterBottom> Summary </Typography></div></div>
-
+                                    <div>
+                                    <Typography variant="h5" gutterBottom> Summary </Typography>
+                                    </div>
+                                    </div>
                                     <Typography variant="body2" component="span">
                                         {this.state.cartItemList && this.state.cartItemList.cartItemList && this.state.cartItemList.cartItemList.map((cartItemList, index) => (
-                                            <Box display="flex" flexDirection="row" key={index}>                                               
+                                            <Box display="flex" flexDirection="row" key={index}>
                                                 <Box p={2}>
-                                                   <CartItem cartItem={cartItemList} checkout={true}/>
-                                                </Box>                                              
-                                                    
+                                                    <CartItem cartItem={cartItemList} checkout={true} />
+                                                </Box>
+
                                             </Box>
                                         ))}
                                     </Typography>
-                                    
                                     <Divider light />
                                     <div>
-                                    <br/>
-                                    <div style={{float:"left"}}><Typography variant="p" gutterBottom style={{fontWeight:'bold'}}> NET AMOUNT </Typography></div>
-                                    <div style={{float:"right", width: "20%"}}><i className="fa fa-rupee-sign" aria-hidden="true"> {this.state.cartItemList.cartTotalPrice} </i></div>
+                                        <br />
+                                        <div style={{ float: "left" }}><Typography gutterBottom > NET AMOUNT </Typography></div>
+                                        <div style={{ float: "right", width: "20%" }}><i className="fa fa-rupee-sign" aria-hidden="true"> {this.state.cartItemList.cartTotalPrice} </i></div>
 
                                     </div>
-                                   
+
                                 </CardContent>
-                                <CardActions className={classes.margin}>                                    
+                                <CardActions className={classes.margin}>
                                     <Button variant="contained" className={classes.margin} color="primary" href="#contained-buttons" size="large" onClick={this.onSubmitOrderHandler}>Place Order </Button>
-                                    
+
                                 </CardActions>
                             </Card>
                         </Grid>
