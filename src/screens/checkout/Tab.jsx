@@ -256,6 +256,7 @@ class SimpleTabs extends Component {
       "state": state
     }
     let addresses = this.state.addresses
+    addresses =addresses || [];
     addresses.push(newAddress);
     this.setState({
       addresses: addresses

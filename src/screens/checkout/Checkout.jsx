@@ -201,7 +201,7 @@ class Checkout extends Component {
             <React.Fragment>
                 <Header />
                 <MuiThemeProvider theme={theme}>
-                    <Grid container spacing={3}>
+                    <Grid container>
                         <Grid item xs={12} sm={8}>
                             <VerticalStepper
                                 baseUrl={this.props.baseUrl}
@@ -212,7 +212,7 @@ class Checkout extends Component {
                                 states={this.state.states}
                                 onNewAddress={this.handleNewAddress} />
                         </Grid>
-                        <Grid item xs={10} sm={3}>
+                        <Grid item xs={10} sm={4}>
                             <Card className={classes.card}>
                                 <CardContent>
                                     <Typography variant="h5" gutterBottom>
