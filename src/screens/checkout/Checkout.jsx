@@ -74,6 +74,10 @@ class Checkout extends Component {
         }
         this.handleAddressSelect.bind(this);
     }
+    componentDidMount(){
+
+        console.log(sessionStorage.getItem("cart"));
+    }
 
     componentWillMount() {
         let that = this;
