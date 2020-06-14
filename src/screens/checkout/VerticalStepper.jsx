@@ -66,7 +66,7 @@ export default function VerticalStepper(props) {
 
     switch (step) {
       case 0:
-        return <SimpleTabs baseUrl={props.baseUrl} handleAddressSelect={props.handleAddressSelect}
+        return <SimpleTabs baseUrl={props.baseUrl}  accessToken={props.accessToken} handleAddressSelect={props.handleAddressSelect}
           states={props.states} handleAddress={() => props.handleAddress} selectedAddress={props.selectedAddress} />
       case 1:
         return payment;

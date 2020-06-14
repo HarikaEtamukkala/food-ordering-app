@@ -85,7 +85,7 @@ const styles = theme => ({
   addressGridTitle: {
     height: '100% !important',
     paddingBottom: 5,
-    width: 'auto !important',
+    width: '30% !important',
     wordWrap: "break-word",
   },
   addressButton: {
@@ -153,7 +153,7 @@ class SimpleTabs extends Component {
     let addressesData = null;
     let xhrAddress = new XMLHttpRequest();
     xhrAddress.addEventListener("readystatechange", function () {
-
+    
       if (this.readyState === 4) {
 
         that.setState({
@@ -165,7 +165,7 @@ class SimpleTabs extends Component {
     xhrAddress.open("GET", this.props.baseUrl + "address/customer");
     xhrAddress.setRequestHeader("Cache-Control", "no-cache");
     xhrAddress.setRequestHeader('Content-Type', 'application/json');
-    xhrAddress.setRequestHeader('authorization', "Bearer access");
+    xhrAddress.setRequestHeader('authorization', "Bearer "+this.props.accessToken);
     xhrAddress.send(addressesData);
   }
   selectAddress = (index) => {
@@ -228,7 +228,7 @@ class SimpleTabs extends Component {
     });
 
     xhr.open("POST", this.props.baseUrl + "address");
-    xhr.setRequestHeader("Authorization", "Bearer access");
+    xhr.setRequestHeader("Authorization", "Bearer "+ this.props.accessToken);
     xhr.setRequestHeader("Cache-Control", "no-cache");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
@@ -236,7 +236,7 @@ class SimpleTabs extends Component {
 
   }
   setAddress = () => {
-    console.log("address called"+this.state.addressId)
+       
     let stateName;
     this.props.states.states.forEach((state) => {
       if (state.id === this.state.state) {
@@ -286,8 +286,7 @@ class SimpleTabs extends Component {
   render() {
     const { selectedIndex } = this.state;
     const { classes } = this.props;
-
-
+   
     return (
       <React.Fragment>
         <AppBar position="relative">
@@ -299,13 +298,13 @@ class SimpleTabs extends Component {
         <TabPanel value={this.state.value} index={0}>
 
           <div className={classes.root}>
-            <GridList spacing={2} className={classes.gridList} cols={3}>
-              {this.state.addresses===null && 
+          {this.state.addresses===null && 
               <div>
                 <Typography>
                 There are no saved addresses! You can save an address using the 'New Address' tab or using your ‘Profile’ menu option.
                 </Typography>
               </div>}
+            <GridList spacing={2} className={classes.gridList} cols={3}>              
               {this.state.addresses && this.state.addresses.map((address) => (
                 <GridListTile key={address.id} className={classes.addressGridTitle}>
                   <Button className={classes.addressButton}>
@@ -316,11 +315,11 @@ class SimpleTabs extends Component {
                     }
                     >
                       <CardContent >
-                        <Typography variant="body2" component="p" gutterBottom>{address.flat_building_name}</Typography>
-                        <Typography >{address.locality}</Typography>
-                        <Typography variant="body2" component="p">{address.city}</Typography>
-                        <Typography variant="body2" component="p">{address.state.state_name}</Typography>
-                        <Typography variant="body2" component="p">{address.pincode}</Typography>
+                        <Typography  component="p" gutterBottom>{address.flat_building_name}</Typography>
+                        <Typography component="p">{address.locality}</Typography>
+                        <Typography  component="p">{address.city}</Typography>
+                        <Typography  component="p">{address.state.state_name}</Typography>
+                        <Typography  component="p">{address.pincode}</Typography>
                         <Typography className={classes.addressStateIcon} aria-label="add to favorites">
                           <CheckCircleIcon style={{ color: (selectedIndex === address.id) ? green[500] : grey[900] }} />
                         </Typography>

@@ -7,11 +7,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import Header from '../../common/Header';
 import VerticalStepper from './VerticalStepper';
 import CartItem from '../details/CartItem';
 import { createMuiTheme, responsiveFontSizes, MuiThemeProvider, Typography } from "@material-ui/core";
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+import Header from '../../common/header/Header';
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -65,7 +65,13 @@ class Checkout extends Component {
             message: '',
             messageInfo: false,
             open: false,
-            cartItemList: JSON.parse(sessionStorage.getItem("cart"))
+            cartItemList: JSON.parse(sessionStorage.getItem("cart")),
+            Item :{
+                item_id:'',
+                quantity: '',
+                price: ''
+            },
+            ItemList:[]
         }
         this.handleAddressSelect.bind(this);
     }
@@ -136,21 +142,34 @@ class Checkout extends Component {
         });
     }
 
+    formItem=()=>{
+       
+        let ItemList=this.state.ItemList
+        this.state.cartItemList.cartItemList.forEach(element => {
+            console.log("element"+element.item.id)
+            let Item={
+                item_id:element.item.id,
+                quantity: element.quantity,
+                price: element.item.price
+            }
+            ItemList.push(Item)       
+            
+        });
+        console.log("length"+ItemList.length)
+        this.setState({
+            ItemList:ItemList
+        })
+    }    
     onSubmitOrderHandler = () => {
-
+        this.formItem();
+        if ((this.state.selectedAddress === "") || (this.state.selectedPayment === "") || (this.state.cartItemList.cartTotalPrice === "") || (this.state.cartItemList.restaurantId === "") || (this.state.ItemList.length === 0)) { return; }
         let data = JSON.stringify({
             "address_id": this.state.selectedAddress,
             "payment_id": this.state.selectedPayment,
-            "bill": 250,
-            "discount": 50,
-            "coupon_id": "2ddf6284-ecd0-11e8-8eb2-f2801f1b9fd1",
-            "restaurant_id": "246165d2-a238-11e8-9077-720006ceb890",
-            "item_quantities": [{
-                "item_id": "c860e78a-a29b-11e8-9a3a-720006ceb890",
-                "quantity": 1,
-                "price": "20"
-            }
-            ]
+            "bill": this.state.cartItemList.cartTotalPrice,
+            "discount": 0,            
+            "restaurant_id": this.state.cartItemList.restaurantId,
+            "item_quantities": this.state.ItemList
 
         });
         let that = this;
@@ -189,9 +208,17 @@ class Checkout extends Component {
             snackBar: false
         })
     };
+    loginredirect = () => {
+        sessionStorage.clear();
+        this.props.history.push({
+            pathname: "/"
+        });
+        window.location.reload();
+    }
     render() {
         const { classes } = this.props;
-        console.log("cartList" + this.state.cartItemList)
+        
+       
         return (
             <React.Fragment>
                 <Header />
@@ -200,6 +227,7 @@ class Checkout extends Component {
                         <Grid item xs={12} sm={8}>
                             <VerticalStepper
                                 baseUrl={this.props.baseUrl}
+                                accessToken={this.props.accessToken} 
                                 paymentMethods={this.state.paymentMethods}
                                 handleChange={() => this.handleChange}
                                 handleAddressSelect={this.handleAddressSelect}
@@ -213,6 +241,7 @@ class Checkout extends Component {
                                     <div>
                                     <div>
                                     <Typography variant="h5" gutterBottom> Summary </Typography>
+                                    <Typography  gutterBottom> {this.state.cartItemList.restaurantName} </Typography>
                                     </div>
                                     </div>
                                     <Typography variant="body2" component="span">
@@ -257,5 +286,7 @@ class Checkout extends Component {
             </React.Fragment>
         )
     }
+  
 }
+
 export default withStyles(styles)(Checkout);

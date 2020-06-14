@@ -3,7 +3,6 @@ import Icon from '@material-ui/icons/RadioButtonCheckedOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
-import Box from '@material-ui/core/Box';
 import {Typography } from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -13,8 +12,8 @@ const styles = theme => ({
     flexGrow: 1,
   },
   paper: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }
@@ -45,33 +44,19 @@ class CartItem extends Component {
         <div style={{ display: "flex", alignItems: "center", float: "right" }}><i className="fa fa-rupee-sign" aria-hidden="true"><span style={{ color: "grey" }}> {this.props.cartItem.item.price.toFixed(2)} </span></i></div>
       </div>}
       {this.props.checkout === true &&
-         <div className={classes.root}>
-          {/* <Box display="flex" flexDirection="row" >
-            <Box  p={2}>
-            <Icon style={{ color: color }} fontSize="small">circle</Icon>
-            </Box>
-            <Box component="span" m={1} p={1} >
-              <Typography>{this.props.cartItem.item.item_name}  </Typography>
-            </Box>
-            <Box p={2} >
-              <Typography> {this.props.cartItem.quantity}</Typography>
-            </Box>
-            <Box p={2}>
-              <Typography>{this.props.cartItem.item.price.toFixed(2)}</Typography>
-            </Box>
-            </Box> */}
+         <div className={classes.root}>         
              <Grid container spacing={3}>
              <Grid item xs={2}>
              <Icon className={classes.paper} style={{ color: color }} fontSize="small">circle</Icon>
             </Grid>
-            <Grid item xs={5} >
+            <Grid item xs={6} >
             <Typography className={classes.paper}>{this.props.cartItem.item.item_name}  </Typography>
             </Grid>
             <Grid item xs={2}>
             <Typography className={classes.paper}> {this.props.cartItem.quantity}</Typography>
             </Grid>
-            <Grid item xs={3}>            
-            <i className={classes.paper} className="fa fa-rupee-sign" aria-hidden="true">{this.props.cartItem.item.price.toFixed(2)}</i>
+            <Grid item xs={2}>            
+            <i className={classes.paper} className="fa fa-rupee-sign" >{this.props.cartItem.item.price}</i>
               </Grid>
              </Grid>
     </div>}

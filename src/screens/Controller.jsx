@@ -4,17 +4,7 @@ import Checkout from './checkout/Checkout';
 import Details from './details/Details';
 import Home from './home/Home';
 
-const headers = () => {
-    const h = new Headers();
-    h.append('Content-Type','application/json');
-    const session ={
-        token:sessionStorage.getItem('access-token')
-    }
-    if(session.token){
-        h.append('authorization',session.token )
-    }
-    return h;
-}
+
 class Controller extends Component{
     constructor() {
         super();
