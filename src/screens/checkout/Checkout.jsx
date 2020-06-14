@@ -66,6 +66,7 @@ class Checkout extends Component {
             messageInfo: false,
             open: false,
             cartItemList: JSON.parse(sessionStorage.getItem("cart")),
+            accessToken : sessionStorage.getItem("access-token"),
             Item :{
                 item_id:'',
                 quantity: '',
@@ -91,7 +92,7 @@ class Checkout extends Component {
         xhrAddress.open("GET", this.props.baseUrl + "address/customer");
         xhrAddress.setRequestHeader("Cache-Control", "no-cache");
         xhrAddress.setRequestHeader('Content-Type', 'application/json');
-        xhrAddress.setRequestHeader('authorization', "Bearer "+this.props.accessToken);
+        xhrAddress.setRequestHeader('authorization', "Bearer "+this.state.accessToken);
         xhrAddress.send(addressesData);
 
         let paymentData = null;
@@ -108,7 +109,7 @@ class Checkout extends Component {
         xhrPayment.open("GET", this.props.baseUrl + "payment");
         xhrPayment.setRequestHeader("Cache-Control", "no-cache");
         xhrPayment.setRequestHeader('Content-Type', 'application/json');
-        xhrPayment.setRequestHeader('authorization', "Bearer "+this.props.accessToken);
+        xhrPayment.setRequestHeader('authorization', "Bearer "+this.state.accessToken);
         xhrPayment.send(paymentData);
 
         let states = null;
@@ -125,7 +126,7 @@ class Checkout extends Component {
         xhrStates.open("GET", this.props.baseUrl + "states");
         xhrStates.setRequestHeader("Cache-Control", "no-cache");
         xhrStates.setRequestHeader('Content-Type', 'application/json');
-        xhrStates.setRequestHeader('authorization', "Bearer "+this.props.accessToken);
+        xhrStates.setRequestHeader('authorization', "Bearer "+this.state.accessToken);
         xhrStates.send(states);
 
     }
@@ -183,7 +184,7 @@ class Checkout extends Component {
         });
 
         xhr.open("POST", this.props.baseUrl + "order");
-        xhr.setRequestHeader("Authorization", "Bearer access");
+        xhr.setRequestHeader('authorization', "Bearer "+this.state.accessToken);
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(data);
@@ -221,7 +222,7 @@ class Checkout extends Component {
        
         return (
             <React.Fragment>
-                <Header />
+                <Header logoutHandler={this.loginredirect}/>
                 <MuiThemeProvider theme={theme}>
                     <Grid container>
                         <Grid item xs={12} sm={8}>
