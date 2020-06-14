@@ -33,6 +33,42 @@
     width: 50%;
 }
 
+.menu-item {
+    display:flex;
+    flex-direction:row; 
+    width:100%; 
+    padding:2%;
+}
+
+.menu-item-type {
+    width:5%; 
+    display:flex; 
+    align-items:center;
+}
+
+.menu-item-name {
+    width:65%; 
+    display:flex; 
+    align-items:center;
+    text-transform: capitalize;
+}
+
+.menu-item-price {
+    width:20%; 
+    display:flex; 
+    align-items:center;
+}
+
+.menu-item-add-button {
+    width:10%; 
+    display:flex; 
+    align-items:center;
+}
+
 .cart {
     width: 50%;
+}
+
+.card{
+    min-width: 275;
 }

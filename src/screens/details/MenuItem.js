@@ -5,16 +5,19 @@ import Add from '@material-ui/icons/Add';
 class MenuItem extends Component {
    
 
-   
+addMenuItemHandler = (item) => {
+  this.props.addMenuItemHandler(item);
+}
+
     render(){
-       const color = this.props.item.item_type === "NON-VEG" ? "red" : "green";
+       const color = this.props.item.item_type === "NON_VEG" ? "red" : "green";
        return(
-        <div style={{display:"flex", flexDirection:"row", width:"100%", padding:"2%"}}>
-        <div style={{width:"5%", display:"flex", alignItems:"center"}}><Icon style={{color:color}} fontSize="small">circle</Icon></div>
-        <div style={{width:"65%", display:"flex", alignItems:"center", textTransform:"capitalize"}}> {this.props.item.item_name} </div>
-        <div style={{width:"20%", display:"flex", alignItems:"center"}}><i className="fa fa-rupee-sign" aria-hidden="true"> {this.props.item.price.toFixed(2)} </i></div>
-        <div style={{width:"10%", display:"flex", alignItems:"center"}}>
-        <IconButton><Add style={{height:"100%"}} /></IconButton>
+        <div className="menu-item">
+        <div className="menu-item-type"><Icon style={{color:color}} fontSize="small">circle</Icon></div>
+        <div className="menu-item-name"> {this.props.item.item_name} </div>
+        <div className="menu-item-price"><i className="fa fa-rupee-sign" aria-hidden="true"> {this.props.item.price.toFixed(2)} </i></div>
+        <div className="menu-item-add-button">
+        <IconButton onClick={(e) => this.addMenuItemHandler(this.props.item)}><Add style={{height:"100%"}} /></IconButton>
         </div>
       </div>
        )

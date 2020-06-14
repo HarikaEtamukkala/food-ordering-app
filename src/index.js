@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Home from './screens/home/Home';
-
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Controller from './screens/Controller';
 
 ReactDOM.render(
-    <Router>
-        <Route exact path='/' component={Home}/>
-    </Router>,
+    <div>
+       <Controller/>
+    </div>,
     document.getElementById('root')
 );
 
