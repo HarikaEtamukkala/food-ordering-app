@@ -134,7 +134,8 @@ class Details extends Component{
                 <div className="menu-cart-section">
                 <Category categories={this.state.categories}   addMenuItemHandler={this.addMenuItemHandler.bind(this)}/>
                 <Cart cartItemCount={this.state.cartItemCount} cartItemList={this.state.cartItemList} cartTotalPrice={this.state.cartTotalPrice} restaurantId={this.state.restaurantId}
-                handleSnackBar={this.handleSnackBar} addItem={this.addItem.bind(this)} removeItem={this.removeItem.bind(this)} history={this.props.history} />
+                handleSnackBar={this.handleSnackBar} addItem={this.addItem.bind(this)} removeItem={this.removeItem.bind(this)} history={this.props.history} 
+                restaurantName={this.state.restaurantName} restaurantLocality={this.state.restaurantLocality} />
                 </div>
 
                 <Snackbar

@@ -22,7 +22,9 @@ class Cart extends Component {
            cartItemList : this.props.cartItemList,
            cartItemCount : this.props.cartItemCount,
            cartTotalPrice : this.props.cartTotalPrice,
-           restaurantId : this.props.restaurantId
+           restaurantId : this.props.restaurantId,
+           restaurantName : this.props.restaurantName,
+           restaurantLocality : this.props.restaurantLocality
          }
         
          sessionStorage.setItem("cart", JSON.stringify(cart));
