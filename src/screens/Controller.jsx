@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Checkout from './checkout/Checkout';
+import Details from './details/Details';
+import Home from './home/Home';
 
 const headers = () => {
     const h = new Headers();
@@ -23,7 +25,10 @@ class Controller extends Component{
         return(
                 <Router>
                     <div>
-                        <Route exact path="/checkout" render={(props)=> <Checkout {...props} baseUrl={this.baseUrl} headers={this.headers}/>}></Route>
+                    <Route exact path='/' component={Home}/>
+                    <Route exact path='/details/:id' render={({history}, props) => <Details {...props} history={history}/>} />
+                     <Route exact path='/checkout' render={({history}, props) => <Checkout {...props} baseUrl={this.baseUrl} history={history}/>} />
+                    {/* <Route exact path="/checkout" render={(props)=> <Checkout {...props} baseUrl={this.baseUrl} headers={this.headers}/>}></Route> */}
                     </div>
                 </Router>
         )
