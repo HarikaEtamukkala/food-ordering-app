@@ -8,7 +8,7 @@ class CartItem extends Component {
     render(){
         const color = this.props.cartItem.item.item_type === "NON_VEG" ? "red" : "green";
         return(
-    <div style={{display:"flex", flexDirection:"row", width:"100%", padding:"1%"}}>
+    <div style={{display:"flex", flexDirection:"row", width:"inherit", padding:"1%"}}>
       <div style={{width:"10%", display:"flex", alignItems:"center"}}><Icon style={{color:color}} fontSize="small">circle</Icon></div>
       <div style={{width:"40%", display:"flex", alignItems:"center", textTransform:"capitalize"}}><span style={{color:"grey"}}> {this.props.cartItem.item.item_name} </span></div>
       <div style={{display:"flex", alignItems:"center"}}>

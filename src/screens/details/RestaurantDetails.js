@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 class RestaurantDetails extends Component {
     render(){
         return(
-        <div style={{display:"flex"}}>
+        <div className="restaurant-section">
            <div className = "image">
               <img alt="Restaurant" src={this.props.photoUrl} width="100%" />
             </div>
