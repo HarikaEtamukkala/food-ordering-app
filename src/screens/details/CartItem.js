@@ -10,13 +10,19 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    width:'100% !important'
   },
   paper: {
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
+    
+    width:'100% !important',
     textAlign: 'center',
     color: theme.palette.text.secondary,
-  }
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+  },
+  
 })
 class CartItem extends Component {
 
@@ -45,18 +51,21 @@ class CartItem extends Component {
       </div>}
       {this.props.checkout === true &&
          <div className={classes.root}>         
-             <Grid container spacing={3}>
+             <Grid container spacing={2}>
              <Grid item xs={2}>
              <Icon className={classes.paper} style={{ color: color }} fontSize="small">circle</Icon>
             </Grid>
             <Grid item xs={6} >
             <Typography className={classes.paper}>{this.props.cartItem.item.item_name}  </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
             <Typography className={classes.paper}> {this.props.cartItem.quantity}</Typography>
             </Grid>
-            <Grid item xs={2}>            
-            <i className={classes.paper} className="fa fa-rupee-sign" >{this.props.cartItem.item.price}</i>
+            <Grid item xs={3}>    
+            <div id="checkout" className={classes.paper}>       
+            <i className={classes.paper} id="checkout" className="fa fa-rupee-sign" component="span" > 
+              {this.props.cartItem.item.price.toFixed(2)}
+              </i></div> 
               </Grid>
              </Grid>
     </div>}

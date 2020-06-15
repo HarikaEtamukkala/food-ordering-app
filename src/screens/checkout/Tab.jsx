@@ -84,9 +84,12 @@ const styles = theme => ({
   },
   addressGridTitle: {
     height: '100% !important',
-    paddingBottom: 5,
-    width: '30% !important',
+    paddingBottom: 5,   
     wordWrap: "break-word",
+    fontSize:'smaller',  
+   maxWidth:'300px',
+   minWidth:'200px',
+ 
   },
   addressButton: {
     padding: 0,
@@ -94,8 +97,7 @@ const styles = theme => ({
   },
   addressCard: {
     textAlign: "left",
-    width: "100%",
-    border: "none",
+    width: "100%",    
     borderRadius: 5,
     boxShadow: "none",
     border: `1px solid white`,
@@ -267,9 +269,9 @@ class SimpleTabs extends Component {
     this.state.locality === "" ? this.setState({ reqLocality: "dispBlock" }) : this.setState({ reqLocality: "dispNone" });
     this.state.city === "" ? this.setState({ reqCity: "dispBlock" }) : this.setState({ reqCity: "dispNone" });
     this.state.state === "" ? this.setState({ reqState: "dispBlock" }) : this.setState({ reqState: "dispNone" });
-    this.state.pincode === 0 ? this.setState({ reqPincode: "dispBlock" }) : this.setState({ reqPincode: "dispNone" });
+    this.state.pincode === "" ? this.setState({ reqPincode: "dispBlock" }) : this.setState({ reqPincode: "dispNone" });
 
-    if ((this.state.flat === "") || (this.state.locality === "") || (this.state.city === "") || (this.state.state === "") || (this.state.pincode === 0)) { return; }
+    if ((this.state.flat === "") || (this.state.locality === "") || (this.state.city === "") || (this.state.state === "") || (this.state.pincode === "")) { return; }
 
     if (!Number(this.state.pincode)) {
       this.setState({ verifyPinCode: "dispBlock" })
@@ -304,7 +306,8 @@ class SimpleTabs extends Component {
                 There are no saved addresses! You can save an address using the 'New Address' tab or using your ‘Profile’ menu option.
                 </Typography>
               </div>}
-            <GridList spacing={2} className={classes.gridList} cols={3}>              
+              {this.state.addresses!==null &&
+            <GridList spacing={1} className={classes.gridList} cols={3}>              
               {this.state.addresses && this.state.addresses.map((address) => (
                 <GridListTile key={address.id} className={classes.addressGridTitle}>
                   <Button className={classes.addressButton}>
@@ -328,7 +331,7 @@ class SimpleTabs extends Component {
                   </Button>
                 </GridListTile>
               ))}
-            </GridList>
+            </GridList>}
           </div>
         </TabPanel>
         <TabPanel value={this.state.value} index={1}>
