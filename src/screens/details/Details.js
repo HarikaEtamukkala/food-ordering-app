@@ -65,6 +65,7 @@ class Details extends Component{
     let cartItemList = this.state.cartItemList;
     var index = cartItemList.indexOf(item);
     cartItemList[index].quantity +=1;
+    cartItemList[index].itemTotalPrice = cartItemList[index].quantity * cartItemList[index].item.price;
     this.setState({
       cartItemCount : this.state.cartItemCount + 1,
       cartItemList : cartItemList,
@@ -77,8 +78,10 @@ class Details extends Component{
     this.handleSnackBar("Item removed from cart!");
     let cartItemList = this.state.cartItemList;
     var index = cartItemList.indexOf(item);
-    if(cartItemList[index].quantity>1)
+    if(cartItemList[index].quantity>1){
       cartItemList[index].quantity -=1;
+      cartItemList[index].itemTotalPrice = cartItemList[index].quantity * cartItemList[index].item.price;
+    }
     else
       cartItemList.splice(index,1);
     if(cartItemList.length > 0)
@@ -106,6 +109,7 @@ class Details extends Component{
     {
       cartItem = {
         item : item,
+        itemTotalPrice : item.price * 1, 
         quantity : 1 
       };
       cartItemList.push(cartItem);
@@ -113,6 +117,7 @@ class Details extends Component{
    else 
    {
      cartItemList[index].quantity +=1;
+     cartItemList[index].itemTotalPrice = cartItemList[index].quantity * cartItemList[index].item.price;
    }
 
    this.setState({
