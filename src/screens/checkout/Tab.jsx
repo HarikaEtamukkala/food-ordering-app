@@ -85,8 +85,10 @@ const styles = theme => ({
   addressGridTitle: {
     height: '100% !important',
     paddingBottom: 5,
-    width: '30% !important',
+    width: 'auto !important',
     wordWrap: "break-word",
+    fontSize:'100%',
+    minwidth: '150px'
   },
   addressButton: {
     padding: 0,
