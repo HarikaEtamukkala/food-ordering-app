@@ -19,7 +19,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             restaurants: []
-        };
+        }; 
     }
 
     componentDidMount() {
@@ -38,10 +38,11 @@ class Home extends React.Component {
     render() {
         const {classes} = this.props;
         const {restaurants} = this.state;
+        //const {searchResByName} = this.searchResByName;
         return <>
             <Header logoutHandler={this.loginredirect} baseUrl={this.props.baseUrl} searchRestaurantsByName={this.searchRestaurantsByName} showSearch={true} history={this.props.history} />
             <div className='cardContainer'>
-                {!(restaurants && 0 < restaurants.length) ? null : restaurants.map(this.restaurantList(classes))}
+            {!(restaurants && 0 < restaurants.length) ? null : restaurants.map(this.restaurantList(classes))}
             </div>
         </>;
     }
@@ -88,7 +89,7 @@ class Home extends React.Component {
                 responseText => {
                     that.setState(
                         {
-                            imageData: JSON.parse(responseText).restaurants
+                            restaurants:JSON.parse(responseText).restaurants
                         }
                     );
                 },
