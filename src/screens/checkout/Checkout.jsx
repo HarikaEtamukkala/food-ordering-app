@@ -267,7 +267,7 @@ class Checkout extends Component {
                                     <div>
                                         <br />
                                         <div style={{ float: "left" }}><Typography gutterBottom > NET AMOUNT </Typography></div>
-                                        <div style={{ float: "right", width: "20%" }}><i className="fa fa-rupee-sign" aria-hidden="true"> {this.state.cartItemList.cartTotalPrice} </i></div>
+                                        <div style={{ float: "right", width: "20%" }}><i className="fa fa-rupee-sign" aria-hidden="true"> {this.state.cartItemList.cartTotalPrice.toFixed(2)} </i></div>
 
                                     </div>
 

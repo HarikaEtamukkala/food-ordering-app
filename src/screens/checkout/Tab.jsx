@@ -303,6 +303,7 @@ class SimpleTabs extends Component {
                 There are no saved addresses! You can save an address using the 'New Address' tab or using your ‘Profile’ menu option.
                 </Typography>
               </div>}
+              {this.state.addresses!==null &&
             <GridList spacing={2} className={classes.gridList} cols={3}>              
               {this.state.addresses && this.state.addresses.map((address) => (
                 <GridListTile key={address.id} className={classes.addressGridTitle}>
@@ -327,7 +328,7 @@ class SimpleTabs extends Component {
                   </Button>
                 </GridListTile>
               ))}
-            </GridList>
+            </GridList>}
           </div>
         </TabPanel>
         <TabPanel value={this.state.value} index={1}>
