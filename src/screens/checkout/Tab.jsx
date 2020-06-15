@@ -84,11 +84,12 @@ const styles = theme => ({
   },
   addressGridTitle: {
     height: '100% !important',
-    paddingBottom: 5,
-    width: 'auto !important',
+    paddingBottom: 5,   
     wordWrap: "break-word",
-    fontSize:'100%',
-    minwidth: '150px'
+    fontSize:'smaller',  
+   maxWidth:'300px',
+   minWidth:'200px',
+ 
   },
   addressButton: {
     padding: 0,
@@ -306,7 +307,7 @@ class SimpleTabs extends Component {
                 </Typography>
               </div>}
               {this.state.addresses!==null &&
-            <GridList spacing={2} className={classes.gridList} cols={3}>              
+            <GridList spacing={1} className={classes.gridList} cols={3}>              
               {this.state.addresses && this.state.addresses.map((address) => (
                 <GridListTile key={address.id} className={classes.addressGridTitle}>
                   <Button className={classes.addressButton}>
