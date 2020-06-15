@@ -53,6 +53,14 @@ class Details extends Component{
         .catch(console.log)
     }
 
+    //Logout action from drop down menu on profile icon
+    loginredirect = () => {
+      sessionStorage.clear();
+      this.props.history.push({
+        pathname: "/"
+      });
+  }
+
     handleSnackBar = (message) => {
     this.setState({
       snackbarOpen: !this.state.snackbarOpen,
@@ -126,7 +134,7 @@ class Details extends Component{
     render(){
         return(
             <div>
-                <Header/>
+                <Header logoutHandler={this.loginredirect} baseUrl={this.props.baseUrl} showSearch={false} history={this.props.history} />
                 <div className="restaurant-section">
                 <RestaurantDetails restaurantName={this.state.restaurantName} restaurantLocality={this.state.restaurantLocality} photoUrl={this.state.photoUrl} rating={this.state.rating} numberOfCustomers={this.state.numberOfCustomers} averagePrice={this.state.averagePrice} categories={this.state.categories}/>
                     
