@@ -27,6 +27,7 @@ const styles = theme => ({
 class CartItem extends Component {
 
   render() {
+    console.log(JSON.stringify(this.props.cartItem));
     const { classes } = this.props;
     const color = this.props.cartItem.item.item_type === "NON_VEG" ? "red" : "green";
     return (
@@ -47,7 +48,7 @@ class CartItem extends Component {
             <IconButton onClick={(event) => this.props.addItem(this.props.cartItem)} aria-hidden="true"><Add style={{ height: "100%" }} /></IconButton>}
 
         </div>
-        <div style={{ display: "flex", alignItems: "center", float: "right" }}><i className="fa fa-rupee-sign" aria-hidden="true"><span style={{ color: "grey" }}> {this.props.cartItem.item.price.toFixed(2)} </span></i></div>
+        <div style={{ display: "flex", alignItems: "center", float: "right" }}><i className="fa fa-rupee-sign" aria-hidden="true"><span style={{ color: "grey" }}> {this.props.cartItem.itemTotalPrice.toFixed(2)} </span></i></div>
       </div>}
       {this.props.checkout === true &&
          <div className={classes.root}>         
@@ -63,8 +64,8 @@ class CartItem extends Component {
             </Grid>
             <Grid item xs={3}>    
             <div id="checkout" className={classes.paper}>       
-            <i className={classes.paper} id="checkout" className="fa fa-rupee-sign" component="span" > 
-              {this.props.cartItem.item.price.toFixed(2)}
+            <i className={classes.paper} className="fa fa-rupee-sign" id="checkout"  component="span" > 
+              {this.props.cartItem.itemTotalPrice.toFixed(2)}
               </i></div> 
               </Grid>
              </Grid>
