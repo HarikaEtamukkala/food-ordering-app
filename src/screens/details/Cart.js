@@ -52,7 +52,7 @@ class Cart extends Component {
   
                   {/* items in cart */}
                   {this.props.cartItemList.map(cartItem =>
-                    <div key={cartItem.item.id}>
+                    <div key={cartItem.item.id} style={{width:"inherit"}}>
                       <CartItem cartItem={cartItem} addItem={this.addItem.bind(this)} removeItem={this.removeItem.bind(this)} />
                     </div>
                   )}

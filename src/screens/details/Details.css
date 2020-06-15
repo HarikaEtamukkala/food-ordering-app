@@ -10,8 +10,7 @@
 
 .restaurant-details {
     padding: 2%;
-    padding-top: 6%;
-    width: 70%;
+    width: 100%;
 }
 
 .image {
@@ -19,7 +18,6 @@
     justify-content: center;
     align-items: center;
     padding: 2%;
-    padding-top: 6%;
     width: 30%;
 }
 
@@ -71,4 +69,26 @@
 
 .card{
     min-width: 275;
+}
+
+@media only screen and (max-width: 768px){
+    .restaurant-section {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .image {
+        width: 100%;
+    }
+    .restaurant-details {
+        width: 100%;
+    }
+    .menu-cart-section {
+        flex-wrap: wrap;
+    }
+    .menu {
+        width: 100%;
+    }
+    .cart {
+        width: 100%;
+    }
 }

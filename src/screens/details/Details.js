@@ -122,12 +122,17 @@ class Details extends Component{
    })
   }
 
-  
+  logoutHandler = () => {
+    sessionStorage.clear();
+    this.props.history.push({
+      pathname: "/"
+    });
+  };
     render(){
         return(
             <div>
-                <Header/>
-                <div className="restaurant-section">
+                <Header logoutHandler={this.logoutHandler}/>
+                <div>
                 <RestaurantDetails restaurantName={this.state.restaurantName} restaurantLocality={this.state.restaurantLocality} photoUrl={this.state.photoUrl} rating={this.state.rating} numberOfCustomers={this.state.numberOfCustomers} averagePrice={this.state.averagePrice} categories={this.state.categories}/>
                     
                 </div>
